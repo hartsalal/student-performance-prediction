@@ -20,15 +20,22 @@ scaler = joblib.load("student_scaler.joblib")
 # ==========================
 # HEADER
 # ==========================
-st.markdown("""
-<h1 style='text-align:center;'>
-🎓 Student Success Prediction System
-</h1>
 
-<h4 style='text-align:center; color:gray;'>
-Machine Learning Based Academic Performance Analysis
-</h4>
-""", unsafe_allow_html=True)
+col_logo, col_title = st.columns([1,5])
+
+with col_logo:
+    st.image("logo.png", width=120)
+
+with col_title:
+    st.markdown("""
+    <h1>
+    🎓 Student Success Prediction System
+    </h1>
+
+    <h4 style='color:gray;'>
+    Machine Learning Based Academic Performance Analysis
+    </h4>
+    """, unsafe_allow_html=True)
 
 st.divider()
 
@@ -107,7 +114,19 @@ The best model obtained from training is Random Forest.
 The objective of this project is to analyze student characteristics
 and predict GradeClass using supervised machine learning techniques.
 """)
+    st.divider()
 
+    st.subheader("Key Findings")
+
+    st.markdown("""
+    ✅ GPA is the strongest predictor of academic performance.
+
+    ✅ Students with fewer absences tend to achieve higher grades.
+
+    ✅ Longer weekly study time contributes positively to GradeClass prediction.
+
+    ✅ Random Forest achieved the highest classification performance.
+""")
 # ==========================
 # DATA INSIGHTS
 # ==========================
@@ -151,7 +170,20 @@ Key findings from exploratory data analysis:
     st.bar_chart(
         feature_df.set_index("Feature")
 )
+    st.divider()
 
+    st.subheader("Feature Interpretation")
+
+    st.markdown("""
+    ### GPA
+    GPA has the strongest influence on GradeClass prediction because it directly represents academic achievement.
+
+    ### Absences
+    Students with higher absence rates tend to have lower academic performance.
+
+    ### StudyTimeWeekly
+    Students who spend more time studying generally achieve better academic outcomes.
+""")
 # ==========================
 # PREDICTION CENTER
 # ==========================
@@ -317,29 +349,59 @@ elif menu == "🎯 Prediction Center":
         st.subheader("Prediction Result")
 
         if prediction == 4:
+
             st.success(
-                "🌟 GradeClass 4 - Excellent Performance"
+                "🌟 GradeClass 4 - Excellent Academic Performance"
             )
+
+            st.write("""
+            The student demonstrates outstanding academic achievement
+            and strong learning performance.
+            """)
 
         elif prediction == 3:
+
             st.success(
-                "✅ GradeClass 3 - Good Performance"
+                "✅ GradeClass 3 - Good Academic Performance"
             )
+
+            st.write("""
+            The student shows good academic performance
+            with opportunities for further improvement.
+            """)
 
         elif prediction == 2:
+
             st.warning(
-                "📘 GradeClass 2 - Average Performance"
+                "📘 GradeClass 2 - Average Academic Performance"
             )
+
+            st.write("""
+            The student performs at an average level.
+            Increased study time may improve outcomes.
+            """)
 
         elif prediction == 1:
+
             st.warning(
-                "📙 GradeClass 1 - Below Average"
+                "📙 GradeClass 1 - Below Average Performance"
             )
 
+            st.write("""
+            The student is performing below average.
+            Additional academic support may be needed.
+            """)
+
         else:
+
             st.error(
                 "📉 GradeClass 0 - Needs Improvement"
             )
+
+            st.write("""
+            The student is at risk of poor academic performance
+            and may benefit from tutoring and better study habits.
+            """)
 
 # ==========================
 # MODEL ANALYSIS
@@ -348,7 +410,7 @@ elif menu == "🧠 Model Analysis":
 
     st.subheader("Model Performance")
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
         st.metric(
@@ -360,6 +422,12 @@ elif menu == "🧠 Model Analysis":
         st.metric(
             "Test Accuracy",
             "91.23%"
+        )
+
+    with col3:
+        st.metric(
+            "Validation Accuracy",
+            "90.56%"
         )
 
     st.divider()
@@ -389,7 +457,16 @@ elif menu == "🧠 Model Analysis":
 GPA, Absences, and StudyTimeWeekly were identified as
 the most important variables affecting student performance.
 """)
+    
+    st.divider()
 
+    st.subheader("Confusion Matrix")
+
+    st.image(
+        "confusionmatrix.png",
+        caption="Random Forest Classification Results",
+        use_container_width=True
+    )
 # ==========================
 # PROJECT INFO
 # ==========================
@@ -424,3 +501,8 @@ Random Forest
     st.success(
         "Developed for Supervised Learning Final Project"
     )   
+    st.divider()
+
+    st.caption(
+        "Developed by Hartsal Al Ghifari Khaidir | Artificial Intelligence Project | 2026"
+    )
