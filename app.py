@@ -133,9 +133,24 @@ Key findings from exploratory data analysis:
 - More study time generally leads to better academic outcomes.
 """)
 
-    st.info(
-        "Feature importance and heatmap visualizations can be added here later."
-    )
+    st.subheader("Top Influential Features")
+
+    feature_df = pd.DataFrame({
+        "Feature": [
+            "GPA",
+            "Absences",
+            "StudyTimeWeekly"
+        ],
+        "Importance": [
+        0.42,
+        0.31,
+        0.12
+    ]
+})
+
+    st.bar_chart(
+        feature_df.set_index("Feature")
+)
 
 # ==========================
 # PREDICTION CENTER
@@ -408,4 +423,4 @@ Random Forest
 
     st.success(
         "Developed for Supervised Learning Final Project"
-    )
+    )   
